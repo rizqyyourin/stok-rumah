@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stok Barang Keluarga</title>
+  <meta name="description" content="Stok barang keluarga terhubung ke Google Sheets via Apps Script" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<header>
+  <h1>Stok Barang Rumah</h1>
+  <div class="sub">Website keluarga, data tersimpan di Google Sheets via Google Apps Script</div>
+</header>
+
+<main class="card">
+  <!-- Top bar -->
+  <div class="bar">
+  <input id="search" placeholder="Cari nama/kategori/lokasi..."/>
+    <select id="catFilter">
+    <option value="__ALL__">Semua kategori</option>
+    <!-- akan dipopulasi dinamis dari server -->
+    </select>
+  <button id="openCreate" class="btn primary">+ Tambah</button>
+  <button id="reload" class="btn">Muat Ulang <span id="reloading" style="display:none" class="loader"></span></button>
+  <button id="exportCsv" class="btn">Ekspor CSV</button>
+  <!-- <span class="muted">Klik judul kolom untuk <em>sort</em></span> -->
+</div>
+
+
+
+  <!-- Table -->
+  <div class="table-wrap" style="overflow:auto; max-height:65vh; border-radius:12px">
+    <table id="table">
+      <thead><tr id="thead"></tr></thead>
+      <tbody id="tbody">
+        <tr><td class="empty" colspan="99">Memuat data…</td></tr>
+      </tbody>
+    </table>
+    <div class="bar" id="pagerBar" style="justify-content:space-between; align-items:center; margin-top:12px">
+    <div class="muted" id="pagerInfo">–</div>
+    <div style="display:flex; gap:8px; align-items:center">
+        <label class="muted" for="pageSize">Per halaman</label>
+        <select id="pageSize">
+        <option>10</option>
+        <option selected>25</option>
+        <option>50</option>
+        <option>100</option>
+        </select>
+        <button id="prevPage" class="btn">‹ Sebelumnya</button>
+        <button id="nextPage" class="btn">Berikutnya ›</button>
+    </div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal edit -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h3>Edit Item</h3>
+    <form id="editForm" class="grid">
+      <input name="nama" placeholder="Nama" />
+      <input name="kategori" placeholder="Kategori" />
+      <input name="qty" type="number" min="0" placeholder="Qty" />
+      <input name="satuan" placeholder="Satuan" />
+      <select id="lokasiEdit" name="lokasi" required>
+        <option value="">Pilih lokasi…</option>
+        <option>Lantai 1</option>
+        <option>Lantai 2</option>
+        <option>Lantai 3</option>
+      </select>
+      <input name="id" type="hidden" />
+    </form>
+    <div class="footer">
+      <button class="btn" id="closeModal">Batal</button>
+      <button class="btn good" id="saveEdit">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal tambah -->
+<div class="modal-backdrop" id="createBackdrop" style="display:none">
+  <div class="modal">
+    <h3>Tambah Item</h3>
+    <form id="createForm" class="grid" autocomplete="off">
+      <input name="nama" placeholder="Nama" required />
+      <input name="kategori" placeholder="Kategori" />
+      <input name="qty" type="number" min="0" placeholder="Qty" required />
+      <input name="satuan" placeholder="Satuan" />
+      <select id="lokasiCreate" name="lokasi" required>
+        <option value="">Pilih lokasi…</option>
+        <option>Lantai 1</option>
+        <option>Lantai 2</option>
+        <option>Lantai 3</option>
+      </select>
+      <!-- tidak ada tombol submit di form; pakai tombol di footer -->
+    </form>
+    <div class="footer">
+      <button class="btn" id="closeCreate">Batal</button>
+      <button class="btn good" id="saveCreate">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Alert dialog -->
+<div class="dialog-backdrop" id="alertBackdrop" style="display:none">
+  <div class="dialog">
+    <div id="alertIcon" class="icon info">ℹ️</div>
+    <h3 id="alertTitle" class="title">Info</h3>
+    <div id="alertMessage" class="message"></div>
+    <div class="footer">
+      <button class="btn primary" id="alertOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm dialog -->
+<div class="dialog-backdrop" id="confirmBackdrop" style="display:none">
+  <div class="dialog">
+    <div id="confirmIcon" class="icon warn">⚠️</div>
+    <h3 id="confirmTitle" class="title">Konfirmasi</h3>
+    <div id="confirmMessage" class="message"></div>
+    <div class="footer">
+      <button class="btn" id="confirmNo">Batal</button>
+      <button class="btn danger" id="confirmYes">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Config dulu, lalu app logic -->
+<!-- <script src="./config.js"></script>
+<script src="./app.js"></script> -->
+
+<!-- ganti baris JS lama dengan ini: -->
+<script type="module" src="./main.js"></script>
+
+</body>
+</html>

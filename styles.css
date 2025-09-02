@@ -1,0 +1,253 @@
+:root{
+  /* ---- EARTH TONE (LIGHT) ---- */
+  --bg:#faf6ee;           /* sand cream */
+  --bg2:#f1e8d9;          /* warm parchment */
+  --card:#fffaf2;         /* light tan */
+  --card-2:#f5ecdf;       /* header/sticky */
+  --border:#d7c7b1;       /* soft bark */
+  --muted:#7c6a58;        /* cocoa text */
+  --text:#2b241a;         /* deep brown */
+  --accent:#d08b55;       /* terracotta/sand */
+  --danger:#b14a3b;       /* brick */
+  --ok:#5c8663;           /* sage */
+}
+
+/* ====== TYPOGRAPHY IMPROVEMENTS ====== */
+*{ box-sizing:border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale }
+
+
+body{
+  margin:0;
+  font-family:"Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  line-height:1.55;
+  letter-spacing:.1px;
+  background:linear-gradient(180deg,var(--bg),var(--bg2));
+  color:var(--text);
+  text-rendering:optimizeLegibility;
+}
+
+h1{
+  margin:0 0 6px;
+  font-weight:800; /* tebal tapi tetap rapih */
+  letter-spacing:.2px; /* sedikit tracking biar headline manis */
+}
+
+/* tombol & input terasa solid */
+button{ font-weight:600 }
+
+/* angka di tabel rata & stabil lebarnya */
+table, th, td{ font-variant-numeric:tabular-nums; }
+
+/* kecilkan teks muted agar hierarchy makin jelas */
+.sub, .muted{ letter-spacing:.2px }
+
+/* layout */
+header{ padding:24px 16px 8px; max-width:1100px; margin:0 auto; }
+h1{ margin:0 0 6px; font-weight:800; letter-spacing:.3px }
+.sub{ color:var(--muted); font-size:14px }
+main{ max-width:1100px; margin:10px auto 48px; padding:0 16px }
+.bar{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:12px 0 16px }
+
+/* inputs & buttons */
+input,button,select{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#fffdf8;
+  color:var(--text);
+  outline:none;
+}
+input::placeholder{ color:#8f7f6c }
+
+button{ cursor:pointer; transition:.2s transform ease,.2s opacity,.2s background-color ease }
+button:hover{ transform: translateY(-1px) }
+button:focus-visible{ box-shadow:0 0 0 3px rgba(208,139,85,.35) }
+
+.btn{ background:#e8dcc7 } /* pale walnut */
+.btn.primary{ background:var(--accent); color:#2b1d12; border-color:transparent; font-weight:700 }
+.btn.primary:hover{ filter:brightness(1.05) }
+.btn.good{ background:var(--ok); color:#0f1a12; border-color:transparent; font-weight:700 }
+.btn.good:hover{ filter:brightness(1.05) }
+.btn.danger{ background:var(--danger); color:#fffaf2; border-color:transparent; font-weight:700 }
+.btn.danger:hover{ filter:brightness(1.05) }
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 10px 24px rgba(126,99,66,.15);
+}
+
+/* grid */
+.grid{ display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:10px }
+
+/* table */
+table{ width:100%; border-collapse:collapse }
+th,td{ border-bottom:1px solid var(--border); padding:10px; text-align:left; vertical-align:top }
+th{
+  position:sticky; top:0;
+  background:var(--card-2);
+  z-index:1; user-select:none
+}
+th.sortable{ cursor:pointer }
+th.sortable span{ opacity:.75; font-size:12px; margin-left:6px }
+.actions button{ margin-right:6px }
+.muted{ color:var(--muted); opacity:.9; font-size:12px }
+.empty{ text-align:center; padding:28px; opacity:.8 }
+
+/* modal */
+.modal-backdrop{ position:fixed; inset:0; background:rgba(20,16,10,.35); display:none; place-items:center; padding:16px }
+.modal{
+  width:100%; max-width:560px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  box-shadow:0 20px 40px rgba(126,99,66,.18)
+}
+.modal .grid{ grid-template-columns:repeat(2, minmax(0,1fr)) }
+.modal h3{ margin:0 0 8px }
+.modal .footer{ display:flex; justify-content:flex-end; gap:8px; margin-top:12px }
+
+/* centered dialogs (alert/confirm) */
+.dialog-backdrop{ position:fixed; inset:0; background:rgba(20,16,10,.4); display:none; place-items:center; padding:16px; z-index:10000 }
+.dialog{
+  width:100%; max-width:460px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px; padding:18px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(126,99,66,.2)
+}
+.dialog .title{ margin:6px 0; font-weight:800 }
+.dialog .message{ opacity:.95; margin-top:4px }
+.dialog .footer{ display:flex; justify-content:center; gap:8px; margin-top:16px }
+.icon{
+  width:64px; height:64px; border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 8px; font-size:32px; border:1px solid var(--border); color:var(--text)
+}
+.icon.info{    background:#eed9c2 } /* tan */
+.icon.success{ background:#dbe8df } /* light sage */
+.icon.warn{    background:#f0e0bf } /* ochre light */
+.icon.error{   background:#f5d1c9 } /* soft brick */
+
+/* toast */
+.toast{ position:fixed; right:16px; bottom:16px; display:flex; flex-direction:column; gap:8px; z-index:9999 }
+.toast .t{
+  background:#fff8ee;
+  color:#3b2f22;
+  border:1px solid #e2d5c2;
+  padding:10px 12px; border-radius:10px;
+  box-shadow:0 10px 20px rgba(126,99,66,.18)
+}
+
+/* loader */
+.loader{
+  width:18px; height:18px;
+  border:3px solid rgba(208,139,85,.25); /* accent 25% */
+  border-top-color:var(--accent);
+  border-radius:50%;
+  display:inline-block;
+  animation:spin .9s linear infinite;
+  vertical-align:-3px
+}
+@keyframes spin { to { transform: rotate(360deg) } }
+
+@media (max-width: 860px){
+  .grid{ grid-template-columns:repeat(2, minmax(0,1fr)) }
+}
+
+/* ========= SPACING REFINEMENTS ========= */
+:root{
+  /* scale berbasis 4px untuk ritme vertikal */
+  --s-0: 0;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+}
+
+/* layout containers */
+header{ padding: var(--s-8) var(--s-5) var(--s-3); }
+main{ max-width:1100px; margin: var(--s-4) auto var(--s-10); padding: 0 var(--s-5); }
+
+/* top bar */
+.bar{ gap: var(--s-3); margin: var(--s-4) 0 var(--s-5); }
+
+/* controls */
+input,button,select{
+  padding: var(--s-3) var(--s-4);
+  border-radius: 12px;
+}
+button{ min-height: 42px; }
+.actions button{ margin-right: var(--s-2); }
+
+/* cards */
+.card{ padding: var(--s-5); border-radius: 18px; }
+
+/* table */
+th,td{ padding: var(--s-3) var(--s-4); }
+th.sortable span{ margin-left: var(--s-2); }
+.empty{ padding: var(--s-8); }
+
+/* table wrapper (pindahkan dari inline style di HTML kalau mau) */
+.table-wrap{ overflow:auto; max-height:65vh; border-radius:12px; }
+
+/* modals */
+.modal-backdrop{ padding: var(--s-4); }
+.modal{
+  padding: var(--s-5);
+  border-radius: 18px;
+}
+.modal .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap: var(--s-3); }
+.modal h3{ margin: 0 0 var(--s-3); }
+.modal .footer{ gap: var(--s-3); margin-top: var(--s-4); }
+
+/* dialogs (alert/confirm) */
+.dialog-backdrop{ padding: var(--s-4); }
+.dialog{
+  padding: var(--s-6);
+  border-radius: 18px;
+}
+.dialog .title{ margin: var(--s-2) 0; }
+.dialog .message{ margin-top: var(--s-2); }
+.dialog .footer{ gap: var(--s-3); margin-top: var(--s-4); }
+.icon{ margin-bottom: var(--s-2); }
+
+/* toast */
+.toast{ right: var(--s-5); bottom: var(--s-5); }
+.toast .t{ padding: var(--s-3) var(--s-4); border-radius: 12px; }
+
+/* loader placement tweak */
+.loader{ vertical-align: -3px; }
+
+/* responsive tuning */
+@media (max-width: 860px){
+  header{ padding: var(--s-6) var(--s-4) var(--s-2); }
+  main{ padding: 0 var(--s-4); margin: var(--s-3) auto var(--s-8); }
+  .bar{ gap: var(--s-2); margin: var(--s-3) 0 var(--s-4); }
+  .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap: var(--s-3); }
+  th,td{ padding: var(--s-2) var(--s-3); }
+  .card{ padding: var(--s-4); }
+}
+
+/* ===== Lokasi badges ===== */
+.badge{
+  display:inline-block; white-space:nowrap;
+  padding:4px 10px; border-radius:999px;
+  font-size:12px; font-weight:600;
+  border:1px solid transparent;
+}
+.badge.l1{ background:#dbe8df; color:#234131; border-color:#b8cfc2 }   /* Lantai 1 - sage */
+.badge.l2{ background:#f3e4c9; color:#5a4320; border-color:#e4d1aa }   /* Lantai 2 - sand */
+.badge.l3{ background:#f6d8cc; color:#5a2a22; border-color:#ecc0b0 }   /* Lantai 3 - terracotta */
+
+/* fallback untuk lokasi lain */
+.badge.other{ background:#e9e2d7; color:#3c342a; border-color:#d7c7b1 }
+
