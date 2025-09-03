@@ -1,4 +1,4 @@
-#Bikin sehari langsung jadi, 100% gratis & pure vanilla. 
+# Bikin sehari langsung jadi, 100% gratis & pure vanilla. 
 
 Hosting di github dan pake spreadsheet sebagai database.
 
