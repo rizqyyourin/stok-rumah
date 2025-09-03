@@ -17,7 +17,7 @@ export const CATEGORY_ICONS = {
   'obat': '💊', 'kesehatan': '💊',
   'bayi': '🍼', 'anak': '🧒',
   'hewan': '🐶',
-  'kebun': '🌿', 'tanaman': '🌿'
+  'kebun': '🌿', 'tanaman': '🌿', 'baju': '👚'
 };
 
 export function kategoriIcon(label){

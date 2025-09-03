@@ -258,3 +258,32 @@ th.sortable span{ margin-left: var(--s-2); }
 @media (max-width: 560px){
   .actions button { width: 100%; } /* tombol full width di HP */
 }
+
+/* Pastikan modal selalu di atas apa pun */
+.modal-backdrop{
+  position: fixed; /* sudah ada, jaga-jaga */
+  inset: 0;
+  z-index: 20000;  /* lebih tinggi dari th (z-index:1) & dialogs (10k) */
+  /* optional: blur */
+  /* backdrop-filter: blur(2px); */
+}
+
+/* Saat modal terbuka: kunci scroll body (biar tidak geser background) */
+body.modal-open {
+  overflow: hidden;
+  touch-action: none;            /* nyaman di mobile */
+}
+
+/* Di layar kecil, nonaktifkan sticky header saat modal terbuka */
+@media (max-width: 600px){
+  body.modal-open thead th{
+    position: static !important; /* hilangkan sticky sementara */
+  }
+
+  /* Biar modal enak discroll di layar kecil */
+  .modal{
+    max-height: 90vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

@@ -330,9 +330,11 @@ $('#openCreate')?.addEventListener('click', ()=>{
   const f = $('#createForm');
   f.reset();
   $('#createBackdrop').style.display = 'grid';
+  document.body.classList.add('modal-open');
 });
 $('#closeCreate')?.addEventListener('click', ()=>{
   $('#createBackdrop').style.display = 'none';
+  document.body.classList.remove('modal-open');
 });
 $('#saveCreate')?.addEventListener('click', async ()=>{
   const f = $('#createForm');
@@ -380,6 +382,8 @@ $('#tbody')?.addEventListener('click', async (e)=>{
     lokasiEdit.value = val;
     f.id.value       = row[INTERNAL_ID_FIELD];
     $('#modalBackdrop').style.display='grid';
+    document.body.classList.add('modal-open');   // << tambahkan baris ini
+
   }
 });
 
@@ -397,6 +401,7 @@ $('#saveEdit')?.addEventListener('click', async ()=>{
   const r = await api('update', payload);
   if (!r.ok) { await showAlert({ title:'Gagal update', message:(r.error||'Terjadi kesalahan'), type:'error' }); return; }
   $('#modalBackdrop').style.display='none';
+  document.body.classList.remove('modal-open'); // << tambahkan baris ini
   await showSuccess('Perubahan disimpan.');
   load(page);
 });
