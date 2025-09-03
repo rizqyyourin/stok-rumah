@@ -251,3 +251,10 @@ th.sortable span{ margin-left: var(--s-2); }
 /* fallback untuk lokasi lain */
 .badge.other{ background:#e9e2d7; color:#3c342a; border-color:#d7c7b1 }
 
+/* Minimal fix */
+.actions button { 
+  margin: 0 8px 8px 0;   /* kanan & bawah */
+}
+@media (max-width: 560px){
+  .actions button { width: 100%; } /* tombol full width di HP */
+}
